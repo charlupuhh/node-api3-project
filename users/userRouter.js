@@ -83,6 +83,7 @@ function validateUserId(req, res, next) {
     });
 }
 
+
 function validateUser(req, res, next) {
   if(!req.body.name){
     res.status(400).json({message: 'User must contain a name property'})

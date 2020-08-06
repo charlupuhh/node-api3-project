@@ -1,14 +1,11 @@
 const express = require('express');
-
+const moment = require('moment');
 const server = express();
 
 //routes
 const userRouter = require('./users/userRouter')
 
 //middleware functions
-const logger = require('./middleware/logger')
-
-server.use(logger)
 
 server.use(express.json())
 server.use(logger)
@@ -20,5 +17,11 @@ server.get('/', (req, res) => {
 server.use('/user', userRouter);
 
 //custom middleware
+function logger(req, res, next){
+  const timeStamp = moment().format()
+  console.log(`${req.method} ${req.url} ${timeStamp} `);
+
+  next()
+}
 
 module.exports = server;
