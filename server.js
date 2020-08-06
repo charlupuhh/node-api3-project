@@ -2,12 +2,23 @@ const express = require('express');
 
 const server = express();
 
+//routes
+const userRouter = require('./users/userRouter')
+
+//middleware functions
+const logger = require('./middleware/logger')
+
+server.use(logger)
+
+server.use(express.json())
+server.use(logger)
+
 server.get('/', (req, res) => {
   res.send(`<h2>Let's write some middleware!</h2>`);
 });
 
-//custom middleware
+server.use('/user', userRouter);
 
-function logger(req, res, next) {}
+//custom middleware
 
 module.exports = server;
